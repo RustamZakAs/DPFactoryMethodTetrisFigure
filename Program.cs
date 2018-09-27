@@ -8,10 +8,10 @@ namespace DPFactoryMethodTetrisFigure
     {
         static void Main(string[] args)
         {
-            Figure dev = new SquareFigure("ООО КирпичСтрой");
+            Figure dev = new SquareFigure("Квадрат");
             House house2 = dev.Create();
 
-            dev = new TieFigure("Частный застройщик");
+            dev = new TieFigure("Шпала");
             House house = dev.Create();
 
             Console.ReadLine();
