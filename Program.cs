@@ -4,69 +4,91 @@ using System.Text;
 
 namespace DPFactoryMethodTetrisFigure
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
             Figure dev = new SquareFigure("Квадрат");
-            House house2 = dev.Create();
+            Creator house2 = dev.Create();
+
 
             dev = new TieFigure("Шпала");
-            House house = dev.Create();
+            Creator house = dev.Create();
 
             Console.ReadLine();
         }
     }
-    // абстрактный класс строительной компании
-    abstract class Figure
+    // абстрактный класс
+    public abstract class Figure
     {
         public string Name { get; set; }
+        public int[,] Element { get; set; }
 
         public Figure(string n)
         {
             Name = n;
         }
         // фабричный метод
-        abstract public House Create();
+        abstract public Creator Create();
+
+        public void Show()
+        {
+            for (int i = 0; i < Element.Length; i++)
+            {
+                for (int j = 0; j < Element.LongLength; j++)
+                {
+                    Console.WriteLine(Element[i, j]);
+                }
+            }
+        }
     }
-    // строит панельные дома
-    class SquareFigure : Figure
+    // строит 
+    public class SquareFigure : Figure
     {
         public SquareFigure(string n) : base(n)
-        { }
-
-        public override House Create()
         {
-            return new PanelHouse();
+            Element = new int[4,4] { {1, 1, 1, 0}, {1, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0} };
+        }
+
+        public override Creator Create()
+        {
+            return new SquareForm();
         }
     }
-    // строит деревянные дома
-    class TieFigure : Figure
+    // строит 
+    public class TieFigure : Figure
     {
         public TieFigure(string n) : base(n)
-        { }
-
-        public override House Create()
         {
-            return new WoodHouse();
+            Element = new int[4, 4] { { 1, 1, 1, 1 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 } };
+        }
+
+        public override Creator Create()
+        {
+            return new TieForm();
         }
     }
 
-    abstract class House
-    { }
-
-    class PanelHouse : House
+    public abstract class Creator
     {
-        public PanelHouse()
-        {
-            Console.WriteLine("Панельный дом построен");
-        }
+        public abstract Figure FactoryMethod();
     }
-    class WoodHouse : House
+
+    public class SquareForm : Creator
     {
-        public WoodHouse()
+        public SquareForm()
         {
-            Console.WriteLine("Деревянный дом построен");
+            //Console.WriteLine("Панельный дом построен");
         }
+        public override Figure FactoryMethod() { return new SquareFigure("Квадрат"); }
+    }
+
+    public class TieForm : Creator
+    {   
+        public TieForm()
+        {
+            //Console.WriteLine("Деревянный дом построен");
+        }
+        public override Figure FactoryMethod() { return new TieFigure("Шпала"); }
     }
 }
