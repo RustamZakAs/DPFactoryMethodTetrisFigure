@@ -8,12 +8,13 @@ namespace DPFactoryMethodTetrisFigure
     {
         static void Main(string[] args)
         {
-            Figure dev = new SquareFigure("Квадрат");
-            Creator house2 = dev.Create();
+            //Figure dev = new SquareFigure("Квадрат");
+            List<Creator> CreatorList = new List<Creator>();
+            CreatorList.Add(new SquareForm());
+            CreatorList.Add(new TieForm());
 
-
-            dev = new TieFigure("Шпала");
-            Creator house = dev.Create();
+            Figure f = CreatorList[0].FactoryMethod();
+            f.Show();
 
             Console.ReadLine();
         }
@@ -28,17 +29,18 @@ namespace DPFactoryMethodTetrisFigure
         {
             Name = n;
         }
-        // фабричный метод
-        abstract public Creator Create();
+        //// фабричный метод
+        //abstract public Creator Create();
 
         public void Show()
         {
-            for (int i = 0; i < Element.Length; i++)
+            for (int i = 0; i < 4; i++)
             {
-                for (int j = 0; j < Element.LongLength; j++)
+                for (int j = 0; j < 4; j++)
                 {
-                    Console.WriteLine(Element[i, j]);
+                    Console.Write(Element[i, j]);
                 }
+                Console.WriteLine();
             }
         }
     }
@@ -50,10 +52,10 @@ namespace DPFactoryMethodTetrisFigure
             Element = new int[4,4] { {1, 1, 1, 0}, {1, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0} };
         }
 
-        public override Creator Create()
-        {
-            return new SquareForm();
-        }
+        //public override Creator Create()
+        //{
+        //    return new SquareForm();
+        //}
     }
     // строит 
     public class TieFigure : Figure
@@ -63,10 +65,10 @@ namespace DPFactoryMethodTetrisFigure
             Element = new int[4, 4] { { 1, 1, 1, 1 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 } };
         }
 
-        public override Creator Create()
-        {
-            return new TieForm();
-        }
+        //public override Creator Create()
+        //{
+        //    return new TieForm();
+        //}
     }
 
     public abstract class Creator
@@ -78,7 +80,7 @@ namespace DPFactoryMethodTetrisFigure
     {
         public SquareForm()
         {
-            //Console.WriteLine("Панельный дом построен");
+            Console.WriteLine("");
         }
         public override Figure FactoryMethod() { return new SquareFigure("Квадрат"); }
     }
@@ -87,7 +89,7 @@ namespace DPFactoryMethodTetrisFigure
     {   
         public TieForm()
         {
-            //Console.WriteLine("Деревянный дом построен");
+            Console.WriteLine("");
         }
         public override Figure FactoryMethod() { return new TieFigure("Шпала"); }
     }
