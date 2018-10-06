@@ -8,14 +8,17 @@ namespace DPFactoryMethodTetrisFigure
     {
         static void Main(string[] args)
         {
-            //Figure dev = new SquareFigure("Квадрат");
             List<Creator> CreatorList = new List<Creator>();
             CreatorList.Add(new SquareForm());
             CreatorList.Add(new TieForm());
 
-            Figure f = CreatorList[0].FactoryMethod();
-            f.Show();
+            Random r = new Random();
 
+            for (int i = 0; i < CreatorList.Count; i++)
+            {
+                Figure f = CreatorList[r.Next(0, CreatorList.Count)].FactoryMethod();
+                f.Show();
+            }
             Console.ReadLine();
         }
     }
@@ -29,8 +32,6 @@ namespace DPFactoryMethodTetrisFigure
         {
             Name = n;
         }
-        //// фабричный метод
-        //abstract public Creator Create();
 
         public void Show()
         {
@@ -51,11 +52,6 @@ namespace DPFactoryMethodTetrisFigure
         {
             Element = new int[4,4] { {1, 1, 1, 0}, {1, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0} };
         }
-
-        //public override Creator Create()
-        //{
-        //    return new SquareForm();
-        //}
     }
     // строит 
     public class TieFigure : Figure
@@ -64,11 +60,6 @@ namespace DPFactoryMethodTetrisFigure
         {
             Element = new int[4, 4] { { 1, 1, 1, 1 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 } };
         }
-
-        //public override Creator Create()
-        //{
-        //    return new TieForm();
-        //}
     }
 
     public abstract class Creator
