@@ -14,12 +14,20 @@ namespace DPFactoryMethodTetrisFigure
 
             Random r = new Random();
 
-            for (int i = 0; i < CreatorList.Count; i++)
+            //for (int i = 0; i < CreatorList.Count; i++)
+            //{
+            //    Figure f = CreatorList[r.Next(0, CreatorList.Count)].FactoryMethod();
+            //    f.Show();
+            //}
+
+            while (true)
             {
                 Figure f = CreatorList[r.Next(0, CreatorList.Count)].FactoryMethod();
                 f.Show();
+                Console.ReadLine();
             }
-            Console.ReadLine();
+
+            //Console.ReadLine();
         }
     }
     // абстрактный класс
@@ -27,6 +35,7 @@ namespace DPFactoryMethodTetrisFigure
     {
         public string Name { get; set; }
         public int[,] Element { get; set; }
+        public ConsoleColor color { get; set; }
 
         public Figure(string n)
         {
@@ -46,11 +55,11 @@ namespace DPFactoryMethodTetrisFigure
         }
     }
     // строит 
-    public class SquareFigure : Figure
+    public class BigSquareFigure : Figure
     {
-        public SquareFigure(string n) : base(n)
+        public BigSquareFigure(string n) : base(n)
         {
-            Element = new int[4,4] { {1, 1, 1, 0}, {1, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0} };
+            Element = new int[4,4] { {1, 1, 1, 1}, {1, 1, 1, 1}, {1, 1, 1, 1}, {1, 1, 1, 1} };
         }
     }
     // строит 
@@ -73,7 +82,7 @@ namespace DPFactoryMethodTetrisFigure
         {
             Console.WriteLine("");
         }
-        public override Figure FactoryMethod() { return new SquareFigure("Квадрат"); }
+        public override Figure FactoryMethod() { return new BigSquareFigure("Большой Квадрат"); }
     }
 
     public class TieForm : Creator
@@ -82,6 +91,6 @@ namespace DPFactoryMethodTetrisFigure
         {
             Console.WriteLine("");
         }
-        public override Figure FactoryMethod() { return new TieFigure("Шпала"); }
+        public override Figure FactoryMethod() { return new TieFigure("Верхняя Шпала"); }
     }
 }
