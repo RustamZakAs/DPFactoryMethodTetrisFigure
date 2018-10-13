@@ -35,11 +35,12 @@ namespace DPFactoryMethodTetrisFigure
     {
         public string Name { get; set; }
         public int[,] Element { get; set; }
-        public ConsoleColor color { get; set; }
+        public ConsoleColor BackColor { get; set; }
 
-        public Figure(string n)
+        public Figure(string n, ConsoleColor backColor = ConsoleColor.Blue)
         {
             Name = n;
+            BackColor = backColor;
         }
 
         public void Show()
@@ -48,7 +49,15 @@ namespace DPFactoryMethodTetrisFigure
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    Console.Write(Element[i, j]);
+                    Console.BackgroundColor = BackColor;
+                    if (Element[i, j] == 1)
+                    {
+                        if (BackColor == ConsoleColor.Black) BackColor = ConsoleColor.Blue;
+                        Console.BackgroundColor = BackColor;
+                    } else {
+                        Console.BackgroundColor = ConsoleColor.Black;
+                    }
+                    Console.Write(" ");
                 }
                 Console.WriteLine();
             }
